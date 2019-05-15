@@ -4,7 +4,8 @@
 
 # For_my
 A program to manage the production of cheese, fully written in Python.
-It stores data in a .csv file and can manage it, even generating graphics (using plotly).
+
+It stores data in a `.csv` file and can manage it, even generating graphics (using plotly).
 
 ![Sample graphic preview](sample/sample.png)
 
