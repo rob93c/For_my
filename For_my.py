@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
 # Created by Roberto Cella
 # For any question mail me at rob.uniuc@gmail.com
 
@@ -21,14 +22,13 @@ import plotly.graph_objs as go
 import pandas as pd
 from pathlib import Path
 from pynput.keyboard import Key, Controller
-from summer import summer
-from functools import lru_cache
 
 
 class For_my:
 
-    @lru_cache(maxsize=64)
     def main(self):
+        # Windows requires a precise file path, i.e.
+        # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
         path = Path("data.csv")
         sys.tracebacklimit = 0
         keyboard = Controller()
@@ -53,12 +53,13 @@ Benvenuto in For_my, scegli un'opzione:
                         "Quanto hai guadagnato questa settimana? ")
                     ])
             elif choice == "2":  # cronologia spese
-                print(f"\nLe spese totali sono state di {summer(1)}€.")
+                print(f"\nLe spese totali sono state di {Summer.summer(1)}€.")
             elif choice == "3":  # cronologia latte
-                print(f"\nHai usato un totale di {summer(2)} litri.")
-            elif choice == "4":  # entrate
-                gain = summer(3) - summer(1) - summer(2) * 0.4
-                print(f"\nHai guadagnato un netto di {gain}0€")
+                print(f"\nHai usato un totale di {Summer.summer(2)} litri.")
+            elif choice == "4":  # entrate nette
+                gain = Summer.summer(3) - Summer.summer(1) - \
+                    Summer.summer(2) * 0.4
+                print(f"\nHai guadagnato un netto di {Summer.nicegain(gain)}€")
             elif choice == "5":  # grafico
                 df = pd.read_csv("data.csv")
 
@@ -95,6 +96,27 @@ Benvenuto in For_my, scegli un'opzione:
                 continue
             else:
                 break
+
+
+class Summer:
+
+    # takes an index and sums every number at that index in a csv file
+    def summer(index: int) -> int:
+        tot = 0
+        with Path("data.csv").open("r") as op:
+            reader = csv.reader(op, delimiter=",")
+            data = [line[index] for line in reader if line[index].isdigit()]
+            for value in data:
+                tot += int(value)
+            return tot
+
+# Windows requires a precise file path, i.e.
+# Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
+
+    # Takes a float with 13 decimal numbers and returns just the first 2
+    def nicegain(num: float) -> float:
+        strnum = str(num)
+        return float(strnum[:-11])
 
 
 For_my().main()
