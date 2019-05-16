@@ -10,9 +10,9 @@ Scrivere i litri di latte usati e moltiplicarli * 0.4, aggiungendoli alle spese
 Tenere conto dei litri (quanti litri ho usato finora?)
 Vedere le entrate al netto delle spese
 Grafico:
-	x = tempo, y = soldi guadagnati
+    x = tempo, y = soldi guadagnati
     x = tempo, y = litri lavorati
-	- sovrapposizione dei due grafici
+    - sovrapposizione dei due grafici
 """
 import sys
 import csv
@@ -26,10 +26,10 @@ from pynput.keyboard import Key, Controller
 
 class For_my:
 
-    def main(self):
+    def main(self) -> None:
         # Windows requires a precise file path, i.e.
         # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
-        path = Path("data.csv")
+        path: Path = Path("data.csv")
         sys.tracebacklimit = 0
         keyboard = Controller()
         while True:
@@ -43,7 +43,7 @@ Benvenuto in For_my, scegli un'opzione:
 5) Crea il grafico (latte e soldi guadagnati in relazione al tempo)
 0) Chiudi il programma
 		    """)
-            choice = input()
+            choice: str = input()
             if choice == "1":  # imposta uscite, litri lavorati e introiti
                 with path.open("a") as op:
                     writer = csv.writer(op)
@@ -59,7 +59,7 @@ Benvenuto in For_my, scegli un'opzione:
             elif choice == "4":  # entrate nette
                 gain = Summer.summer(3) - Summer.summer(1) - \
                     Summer.summer(2) * 0.4
-                print(f"\nHai guadagnato un netto di {Summer.nicegain(gain)}€")
+                print(f"\nHai guadagnato un netto di {Summer.prettify(gain)}€")
             elif choice == "5":  # grafico
                 df = pd.read_csv("data.csv")
 
@@ -102,7 +102,7 @@ class Summer:
 
     # takes an index and sums every number at that index in a csv file
     def summer(index: int) -> int:
-        tot = 0
+        tot: int = 0
         with Path("data.csv").open("r") as op:
             reader = csv.reader(op, delimiter=",")
             data = [line[index] for line in reader if line[index].isdigit()]
@@ -114,8 +114,8 @@ class Summer:
 # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
 
     # Takes a float with 13 decimal numbers and returns just the first 2
-    def nicegain(num: float) -> float:
-        strnum = str(num)
+    def prettify(num: float) -> float:
+        strnum: str = str(num)
         return float(strnum[:-11])
 
 
