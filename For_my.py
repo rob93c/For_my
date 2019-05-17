@@ -31,13 +31,13 @@ class For_my:
     def main(self) -> None:
         # Windows requires a precise file path, i.e.
         # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
-        path: Path = Path("data.csv") if not Tools.isWin() else Path("\\data.csv")
+        path: Path = Path("data.csv") if not Tools.isWin(self) else Path("\\data.csv")
         sys.tracebacklimit = 0
         keyboard = Controller()
-        Tools.logo()
+        Tools.logo(self)
         sleep(2)
         while True:
-            Tools.clear()
+            Tools.clear(self)
             print("""
 Benvenuto in For_my, scegli un'opzione:
 
@@ -58,13 +58,13 @@ Benvenuto in For_my, scegli un'opzione:
                         "Quanto hai guadagnato questa settimana? ")
                     ])
             elif choice == "2":  # cronologia spese
-                print(f"\nLe spese totali sono state di {Tools.summer(1)}€.")
+                print(f"\nLe spese totali sono state di {Tools.summer(self, 1)}€.")
             elif choice == "3":  # cronologia latte
-                print(f"\nHai usato un totale di {Tools.summer(2)} litri.")
+                print(f"\nHai usato un totale di {Tools.summer(self, 2)} litri.")
             elif choice == "4":  # entrate nette
-                gain = Tools.summer(3) - Tools.summer(1) - \
-                    Tools.summer(2) * 0.4
-                print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€")
+                gain = Tools.summer(self, 3) - Tools.summer(self, 1) - \
+                    Tools.summer(self, 2) * 0.4
+                print(f"\nHai guadagnato un netto di {Tools.prettify(self, gain)}€")
             elif choice == "5":  # grafico
                 df = pd.read_csv("data.csv")
 
@@ -106,7 +106,7 @@ Benvenuto in For_my, scegli un'opzione:
 class Tools:
 
     # takes an index and sums every number at that index in a csv file
-    def summer(index: int) -> int:
+    def summer(self, index: int) -> int:
         tot: int = 0
         with Path("data.csv").open("r") as op:
             reader = csv.reader(op, delimiter=",")
@@ -119,22 +119,22 @@ class Tools:
     # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
 
     # Takes a float with 13 decimal numbers and returns just the first 2
-    def prettify(num: float) -> float:
+    def prettify(self, num: float) -> float:
         strnum: str = str(num)
         return float(strnum[:-11])
 
     # Clears terminal's screen 
-    def clear() -> None:
-        if Tools.isWin(): 
+    def clear(self) -> None:
+        if Tools.isWin(self): 
             _ = system("cls")
         else:
             _ = system("clear")
 
     # Check if the OS is Windows
-    def isWin() -> bool:
+    def isWin(self) -> bool:
         return name == "nt"
 
-    def logo() -> None:
+    def logo(self) -> None:
         print("""
 
                           ---dMMMMMMMMd--.                 
