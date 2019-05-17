@@ -28,7 +28,8 @@ from pynput.keyboard import Key, Controller
 
 class For_my:
 
-    def main(self) -> None:
+    @classmethod
+    def main(cls) -> None:
         # Windows requires a precise file path, i.e.
         # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
         path: Path = Path("data.csv") if not Tools.isWin() else Path("\\data.csv")
@@ -142,31 +143,33 @@ class Tools:
     def logo() -> None:
         print("""
 
-                          ---dMMMMMMMMd--.                 
-                       .+NMMMMMMMMMMMMMMd                 
-                       /MMMMMMMMMMMMMMMMNy-               
-                      dNMMMMMMMMMMMMMMMMMMNd              
-                      NMMMMMMMMMMMMMMMMMMMMN              
-                      NMMMMMMMMMMMMMMMMMMMMN              
-                  `d/ NMMMMMo:-----:NMMMMMMMddh`          
-                  `MMMdmMMMMMm-`  +MMMMMMMmmMMM`          
-                  `MMM+yMMMMMMMy++yMMMMMNso+MMM`          
-                  `MMMMMMMMMMMMMMMMMMMMo+ymMMMM`          
-                  `MMMMMMMd-dMMMNNMMMd-hmMMMMMM`          
-                  `MMMMMMMMMMMMs::sMMMMMMMMMMMM`          
-            .ooooooMMMMMMMMMMMMMMMMMMMMMMMMMMMMoooooo.    
-            :MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:    
-             `ymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmy`     
-               .ymMMMMMMMMMMMMMMMyyyNMMMMMMMMMMMmy.       
-                 :++++MMMMMMMMMMMsssNMMMMMMN++++:         
-                      NMMMMMMMMMMMMMMMMMMMMN              
-                      hmMMMM:    hhhhmMMMM/               
-                       /MMMMy+      +yMMMM/               
-                       .:mMMMm      mMMMm:.               
-                         dMMMm      mMMMd                 
-                         dMMMN//////NMMho                 
-                         /sMMMMMMMMMMMM:                  
-                          `-dMMMMMMMMd-`                  
+
+                               .:lddddddoc'.                  
+                            .;d0NWWNNNNWWWKx:.                
+                           .oKWWKkocc:clxKWWXx;               
+                          .dXWNk:,:lool:,;xXWWO'              
+                          ;0MNk;'lKNWWWXd',dNMKc.             
+                          ;0MNd,.;oooooo:.'oXMKl.             
+                          'kWWKo.        .cOWM0;. .           
+                      .;,..:ONWXx;.     ,dXWWKl..,o:          
+                      ;kOl..,dKWWKo.  .c0WWXx;..:OXo.         
+                      ,kNXd,..'lk0x,. .dKOo,...l0WXl.         
+                      .lXMWKx:'.....   .....:oONWNx,          
+                      .;0MMMMNKkdo:.  .:odx0NWMMMKc.          
+                 ,dkkkk0NMMMMMMMMM0:..,0MMMMMMMMMN0kkkkd:.    
+                 ;ONMMMMMMMMMMMMMMK:..,0MMMMMMMMMMMMMMW0c.    
+                  'l0NWMMMMMMMMMMM0:..,OWMMMMMMMMMMMW0o,.     
+                    .;loodONMMMMWKd'. .,:cld0NNKkdol:.        
+                         .;0WNXXKxc,'''.''':xX0c.             
+                          .xXO:'..';looddoclkXO'              
+                           ;k0l.          .:OOl.              
+                            ;x0d.        .l00l.               
+                             ,O0c.       ;O0c.                
+                             .kKl.      .:0k'                 
+                             .o0k:......;dKx.                 
+                              .lkOkxxkxkOko,                  
+                               .';cloooc:'.                   
+
                
                """)
 
