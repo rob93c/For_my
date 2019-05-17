@@ -14,6 +14,7 @@ Grafico:
     x = tempo, y = litri lavorati
     - sovrapposizione dei due grafici
 """
+import os
 import sys
 import csv
 import datetime
@@ -30,9 +31,8 @@ class For_my:
 
     @classmethod
     def main(cls) -> None:
-        # Windows requires a precise file path, i.e.
-        # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
-        path: Path = Path("data.csv") if not Tools.isWin() else Path("\\data.csv")
+        dirname = os.path.dirname(__file__)
+        path = Path(os.path.join(dirname, "data.csv"))
         sys.tracebacklimit = 0
         keyboard = Controller()
         Tools.logo()
@@ -48,7 +48,7 @@ Benvenuto in For_my, scegli un'opzione:
 4) Vedi le entrate nette
 5) Crea il grafico (latte e soldi guadagnati in relazione al tempo)
 0) Chiudi il programma
-		    """)
+            """)
             choice: str = input()
             if choice == "1":  # imposta uscite, litri lavorati e introiti
                 with path.open("a") as op:
@@ -58,16 +58,16 @@ Benvenuto in For_my, scegli un'opzione:
                         "Quanti litri di latte hai lavorato? "), input(
                         "Quanto hai guadagnato questa settimana? ")
                     ])
-            elif choice == "2":  # cronologia spese
+            elif choice == "2":  # calcola le spese totali
                 print(f"\nLe spese totali sono state di {Tools.summer(1)}€.")
-            elif choice == "3":  # cronologia latte
+            elif choice == "3":  # calcola il latte usato in totale
                 print(f"\nHai usato un totale di {Tools.summer(2)} litri.")
-            elif choice == "4":  # entrate nette
+            elif choice == "4":  # calcola le entrate nette
                 gain = Tools.summer(3) - Tools.summer(1) - \
                     Tools.summer(2) * 0.4
                 print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€")
-            elif choice == "5":  # grafico
-                df = pd.read_csv("data.csv")
+            elif choice == "5":  # genera il grafico
+                df = pd.read_csv(path)
 
                 trace_high = go.Scatter(
                     x=df.Date,
@@ -86,7 +86,7 @@ Benvenuto in For_my, scegli un'opzione:
                 plotly.offline.plot({
                     "data": [trace_high, trace_low],
                     "layout": go.Layout(title="Guadagni e litri usati:")
-                }, auto_open=True, filename='graph.html')
+                }, auto_open=True, filename='grafico.html')
 
             elif choice == "0":  # chiusura
                 keyboard.press(Key.alt)
@@ -109,16 +109,15 @@ class Tools:
     # takes an index and sums every number at that index in a csv file
     @staticmethod
     def summer(index: int) -> int:
+        dirname = os.path.dirname(__file__)
+        path = Path(os.path.join(dirname, "data.csv"))
         tot: int = 0
-        with Path("data.csv").open("r") as op:
+        with path.open("r") as op:
             reader = csv.reader(op, delimiter=",")
             data = [line[index] for line in reader if line[index].isdigit()]
             for value in data:
                 tot += int(value)
             return tot
-
-    # Windows requires a precise file path, i.e.
-    # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
 
     # Takes a float with 13 decimal numbers and returns just the first 2
     @staticmethod
@@ -139,6 +138,7 @@ class Tools:
     def isWin() -> bool:
         return name == "nt"
 
+    # Prints the logo
     @staticmethod
     def logo() -> None:
         print("""
