@@ -21,6 +21,8 @@ import plotly
 import plotly.graph_objs as go
 import pandas as pd
 from pathlib import Path
+from time import sleep
+from os import system, name
 from pynput.keyboard import Key, Controller
 
 
@@ -29,10 +31,13 @@ class For_my:
     def main(self) -> None:
         # Windows requires a precise file path, i.e.
         # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
-        path: Path = Path("data.csv")
+        path: Path = Path("data.csv") if not Tools.isWin() else Path("\\data.csv")
         sys.tracebacklimit = 0
         keyboard = Controller()
+        Tools.logo()
+        sleep(2)
         while True:
+            Tools.clear()
             print("""
 Benvenuto in For_my, scegli un'opzione:
 
@@ -53,13 +58,13 @@ Benvenuto in For_my, scegli un'opzione:
                         "Quanto hai guadagnato questa settimana? ")
                     ])
             elif choice == "2":  # cronologia spese
-                print(f"\nLe spese totali sono state di {Summer.summer(1)}€.")
+                print(f"\nLe spese totali sono state di {Tools.summer(1)}€.")
             elif choice == "3":  # cronologia latte
-                print(f"\nHai usato un totale di {Summer.summer(2)} litri.")
+                print(f"\nHai usato un totale di {Tools.summer(2)} litri.")
             elif choice == "4":  # entrate nette
-                gain = Summer.summer(3) - Summer.summer(1) - \
-                    Summer.summer(2) * 0.4
-                print(f"\nHai guadagnato un netto di {Summer.prettify(gain)}€")
+                gain = Tools.summer(3) - Tools.summer(1) - \
+                    Tools.summer(2) * 0.4
+                print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€")
             elif choice == "5":  # grafico
                 df = pd.read_csv("data.csv")
 
@@ -98,7 +103,7 @@ Benvenuto in For_my, scegli un'opzione:
                 break
 
 
-class Summer:
+class Tools:
 
     # takes an index and sums every number at that index in a csv file
     def summer(index: int) -> int:
@@ -110,13 +115,55 @@ class Summer:
                 tot += int(value)
             return tot
 
-# Windows requires a precise file path, i.e.
-# Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
+    # Windows requires a precise file path, i.e.
+    # Path("C:\\Users\\user\\Desktop\\For_my\\data.csv")
 
     # Takes a float with 13 decimal numbers and returns just the first 2
     def prettify(num: float) -> float:
         strnum: str = str(num)
         return float(strnum[:-11])
+
+    # Clears terminal's screen 
+    def clear() -> None:
+        if Tools.isWin(): 
+            _ = system("cls")
+        else:
+            _ = system("clear")
+
+    # Check if the OS is Windows
+    def isWin() -> bool:
+        return name == "nt"
+
+    def logo() -> None:
+        print("""
+
+                          ---dMMMMMMMMd--.                 
+                       .+NMMMMMMMMMMMMMMd                 
+                       /MMMMMMMMMMMMMMMMNy-               
+                      dNMMMMMMMMMMMMMMMMMMNd              
+                      NMMMMMMMMMMMMMMMMMMMMN              
+                      NMMMMMMMMMMMMMMMMMMMMN              
+                  `d/ NMMMMMo:-----:NMMMMMMMddh`          
+                  `MMMdmMMMMMm-`  +MMMMMMMmmMMM`          
+                  `MMM+yMMMMMMMy++yMMMMMNso+MMM`          
+                  `MMMMMMMMMMMMMMMMMMMMo+ymMMMM`          
+                  `MMMMMMMd-dMMMNNMMMd-hmMMMMMM`          
+                  `MMMMMMMMMMMMs::sMMMMMMMMMMMM`          
+            .ooooooMMMMMMMMMMMMMMMMMMMMMMMMMMMMoooooo.    
+            :MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:    
+             `ymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmy`     
+               .ymMMMMMMMMMMMMMMMyyyNMMMMMMMMMMMmy.       
+                 :++++MMMMMMMMMMMsssNMMMMMMN++++:         
+                      NMMMMMMMMMMMMMMMMMMMMN              
+                      hmMMMM:    hhhhmMMMM/               
+                       /MMMMy+      +yMMMM/               
+                       .:mMMMm      mMMMm:.               
+                         dMMMm      mMMMd                 
+                         dMMMN//////NMMho                 
+                         /sMMMMMMMMMMMM:                  
+                          `-dMMMMMMMMd-`                  
+               
+               """)
 
 
 For_my().main()
