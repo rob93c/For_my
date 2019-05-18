@@ -33,7 +33,7 @@ class For_my:
     def main(cls) -> None:
         dirname = os.path.dirname(__file__)
         path = Path(os.path.join(dirname, "data.csv"))
-        sys.tracebacklimit = 0
+        #sys.tracebacklimit = 0
         keyboard = Controller()
         Tools.logo()
         sleep(2)
@@ -63,7 +63,7 @@ Benvenuto in For_my, scegli un'opzione:
             elif choice == "3":  # calcola il latte usato in totale
                 print(f"\nHai usato un totale di {Tools.summer(2)} litri.")
             elif choice == "4":  # calcola le entrate nette
-                gain = Tools.summer(3) - Tools.summer(1) - \
+                gain: float = Tools.summer(3) - Tools.summer(1) - \
                     Tools.summer(2) * 0.4
                 print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€")
             elif choice == "5":  # genera il grafico
@@ -121,9 +121,19 @@ class Tools:
 
     # Takes a float with 13 decimal numbers and returns just the first 2
     @staticmethod
-    def prettify(num: float) -> float:
-        strnum: str = str(num)
-        return float(strnum[:-11])
+    def prettify(num: float) -> str:
+        strnum: list = str(num).split(".")
+        bef: str = strnum[0]
+        if len(strnum) < 2:
+            return f"{bef}.00"
+        else:
+            aft: str = strnum[1]
+            if len(aft) > 1:
+                return f"{bef}.{aft[:2]}"
+            elif len(aft) == 1:
+                return f"{bef}.{aft[:1]}0"
+            else:
+                return f"{bef}.00"
 
     # Clears terminal's screen 
     @staticmethod
