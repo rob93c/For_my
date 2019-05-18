@@ -5,20 +5,40 @@
 # For any question mail me at rob.uniuc@gmail.com
 
 """
-Scrivere le uscite ogni settimana, con cronologia
-Scrivere i litri di latte usati e moltiplicarli * 0.4, aggiungendoli alle spese
-Tenere conto dei litri (quanti litri ho usato finora?)
-Vedere le entrate al netto delle spese
-Grafico:
-    x = tempo, y = soldi guadagnati
-    x = tempo, y = litri lavorati
-    - sovrapposizione dei due grafici
+
+
+                               .:lddddddoc'.                  
+                            .;d0NWWNNNNWWWKx:.                
+                           .oKWWKkocc:clxKWWXx;               
+                          .dXWNk:,:lool:,;xXWWO'              
+                          ;0MNk;'lKNWWWXd',dNMKc.             
+                          ;0MNd,.;oooooo:.'oXMKl.             
+                          'kWWKo.        .cOWM0;. .           
+                      .;,..:ONWXx;.     ,dXWWKl..,o:          
+                      ;kOl..,dKWWKo.  .c0WWXx;..:OXo.         
+                      ,kNXd,..'lk0x,. .dKOo,...l0WXl.         
+                      .lXMWKx:'.....   .....:oONWNx,          
+                      .;0MMMMNKkdo:.  .:odx0NWMMMKc.          
+                 ,dkkkk0NMMMMMMMMM0:..,0MMMMMMMMMN0kkkkd:.    
+                 ;ONMMMMMMMMMMMMMMK:..,0MMMMMMMMMMMMMMW0c.    
+                  'l0NWMMMMMMMMMMM0:..,OWMMMMMMMMMMMW0o,.     
+                    .;loodONMMMMWKd'. .,:cld0NNKkdol:.        
+                         .;0WNXXKxc,'''.''':xX0c.             
+                          .xXO:'..';looddoclkXO'              
+                           ;k0l.          .:OOl.              
+                            ;x0d.        .l00l.               
+                             ,O0c.       ;O0c.                
+                             .kKl.      .:0k'                 
+                             .o0k:......;dKx.                 
+                              .lkOkxxkxkOko,                  
+                               .';cloooc:'.                   
+
+
+         DEVELOPED BY ROBERTO CELLA FOR AZIENDA AGRICOLA TRENTINA
+
 """
-import os
-import sys
-import csv
-import datetime
-import plotly
+
+import os, sys, csv, datetime, plotly
 import plotly.graph_objs as go
 import pandas as pd
 from pathlib import Path
@@ -31,9 +51,9 @@ class For_my:
 
     @classmethod
     def main(cls) -> None:
-        dirname = os.path.dirname(__file__)
+        dirname = os.path.dirname(os.path.abspath(__file__))
         path = Path(os.path.join(dirname, "data.csv"))
-        #sys.tracebacklimit = 0
+        sys.tracebacklimit = 0
         keyboard = Controller()
         Tools.logo()
         sleep(2)
@@ -109,22 +129,22 @@ class Tools:
     # takes an index and sums every number at that index in a csv file
     @staticmethod
     def summer(index: int) -> int:
-        dirname = os.path.dirname(__file__)
-        path = Path(os.path.join(dirname, "data.csv"))
+        dirname = os.path.dirname(os.path.abspath(__file__))
+        path: Path = Path(os.path.join(dirname, "data.csv"))
         tot: int = 0
-        with path.open("r") as op:
+        with open(path, "r", newline="") as op:
             reader = csv.reader(op, delimiter=",")
             data = [line[index] for line in reader if line[index].isdigit()]
             for value in data:
                 tot += int(value)
             return tot
 
-    # Takes a float with 13 decimal numbers and returns just the first 2
+    # Takes an index and sums all the numbers at that index in a csv file
     @staticmethod
     def prettify(num: float) -> str:
         strnum: list = str(num).split(".")
         bef: str = strnum[0]
-        if len(strnum) < 2:
+        if len(strnum) <= 1:
             return f"{bef}.00"
         else:
             aft: str = strnum[1]

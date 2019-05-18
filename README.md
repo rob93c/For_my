@@ -3,7 +3,7 @@
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y2UIWJ) 
 
 # For_my
-A program to manage the production of cheese, fully written in Python.
+A program I developed on my own for [Azienda Agricola Trentina](https://www.facebook.com/azagrtrentina) to manage the production of cheese, fully written with Python 3 and complies with the pep8 standard.
 
 It stores data in a `.csv` file and can manage it, even generating graphics (using plotly).
 
