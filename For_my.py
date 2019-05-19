@@ -57,9 +57,8 @@ class For_my:
         keyboard = Controller()
         Tools.logo()
         sleep(2)
-        while True:
-            Tools.clear()
-            print("""
+        Tools.clear()
+        print("""
 Benvenuto in For_my, scegli un'opzione:
 
 1) Registra le uscite settimanali, litri lavorati e introiti
@@ -69,6 +68,7 @@ Benvenuto in For_my, scegli un'opzione:
 5) Crea il grafico (latte e soldi guadagnati in relazione al tempo)
 0) Chiudi il programma
             """)
+        while True:
             choice: str = input()
             if choice == "1":  # imposta uscite, litri lavorati e introiti
                 with path.open("a") as op:
@@ -107,21 +107,20 @@ Benvenuto in For_my, scegli un'opzione:
                     "data": [trace_high, trace_low],
                     "layout": go.Layout(title="Guadagni e litri usati:")
                 }, auto_open=True, filename='grafico.html')
-
+                sleep(2)
             elif choice == "0":  # chiusura
                 keyboard.press(Key.alt)
                 keyboard.press(Key.f4)
                 keyboard.release(Key.f4)
                 keyboard.release(Key.alt)
             else:
-                raise ValueError(
-                    "Inserisci il numero corrispondente all'azione desiderata.")
-            loop = input(  # ripeti ciclo
-                "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
-            if loop == "s" or loop == "S":
-                continue
-            else:
-                break
+                print("Inserisci il numero corrispondente all'azione desiderata.")
+#            loop = input(  # ripeti ciclo
+#                "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
+#            if loop == "s" or loop == "S":
+#                continue
+#            else:
+#                break
 
 
 class Tools:
