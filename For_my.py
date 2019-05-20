@@ -56,7 +56,6 @@ class For_my:
         sys.tracebacklimit = 0
         keyboard = Controller()
         Tools.logo()
-        Tools.remove_blanks()
         sleep(2)
         Tools.clear()
         print("""
@@ -70,12 +69,13 @@ Benvenuto in For_my, scegli un'opzione:
 0) Chiudi il programma
             """)
         while True:
+            Tools.remove_blanks()
             choice: str = input()
             if choice == "1":  # imposta uscite, litri lavorati e introiti
                 with path.open("a") as op:
                     writer = csv.writer(op)
                     writer.writerow([f"{datetime.datetime.now():%d-%m-%Y}", input(
-                        "Quanto hai speso questa settimana? "), input(
+                        "\nQuanto hai speso questa settimana? "), input(
                         "Quanti litri di latte hai lavorato? "), input(
                         "Quanto hai guadagnato questa settimana? ")
                     ])
@@ -115,7 +115,7 @@ Benvenuto in For_my, scegli un'opzione:
                 keyboard.release(Key.f4)
                 keyboard.release(Key.alt)
             else:
-                print("Inserisci il numero corrispondente all'azione desiderata.\n")
+                print("\nInserisci il numero corrispondente all'azione desiderata.\n")
 #            loop = input(  # ripeti ciclo
 #                "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
 #            if loop == "s" or loop == "S":
