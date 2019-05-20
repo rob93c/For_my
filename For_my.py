@@ -56,6 +56,7 @@ class For_my:
         sys.tracebacklimit = 0
         keyboard = Controller()
         Tools.logo()
+        Tools.remove_blanks()
         sleep(2)
         Tools.clear()
         print("""
@@ -79,13 +80,13 @@ Benvenuto in For_my, scegli un'opzione:
                         "Quanto hai guadagnato questa settimana? ")
                     ])
             elif choice == "2":  # calcola le spese totali
-                print(f"\nLe spese totali sono state di {Tools.summer(1)}€.")
+                print(f"\nLe spese totali sono state di {Tools.summer(1)}€.\n")
             elif choice == "3":  # calcola il latte usato in totale
-                print(f"\nHai usato un totale di {Tools.summer(2)} litri.")
+                print(f"\nHai usato un totale di {Tools.summer(2)} litri.\n")
             elif choice == "4":  # calcola le entrate nette
                 gain: float = Tools.summer(3) - Tools.summer(1) - \
                     Tools.summer(2) * 0.4
-                print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€")
+                print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€\n")
             elif choice == "5":  # genera il grafico
                 df = pd.read_csv(path)
 
@@ -114,7 +115,7 @@ Benvenuto in For_my, scegli un'opzione:
                 keyboard.release(Key.f4)
                 keyboard.release(Key.alt)
             else:
-                print("Inserisci il numero corrispondente all'azione desiderata.")
+                print("Inserisci il numero corrispondente all'azione desiderata.\n")
 #            loop = input(  # ripeti ciclo
 #                "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
 #            if loop == "s" or loop == "S":
@@ -153,6 +154,20 @@ class Tools:
                 return f"{bef}.{aft[:1]}0"
             else:
                 return f"{bef}.00"
+
+    # removes every blank line in excess from the .csv file
+    @staticmethod
+    def remove_blanks() -> None:
+        dirname: str = os.path.dirname(os.path.abspath(__file__))
+        path: Path = Path(os.path.join(dirname, "data.csv"))
+        with open(path, "r") as op:
+            lines: list = op.readlines()  # read lines in memory
+        with open(path, "w") as op:  # re-write everything from the beginning
+            for line in lines:
+                if line != "\n":
+                    op.write(line)
+                else:
+                    continue
 
     # Clears terminal's screen 
     @staticmethod
