@@ -38,6 +38,8 @@
 
 """
 
+# TO DO: add option to backup data.csv online (Google Drive/Mega/Dropbox)
+
 import os, sys, csv, datetime, plotly
 import plotly.graph_objs as go
 import pandas as pd
@@ -46,39 +48,24 @@ from time import sleep
 from os import system, name
 from pynput.keyboard import Key, Controller
 
+global path
+dirname = os.path.dirname(os.path.abspath(__file__))
+path = Path(os.path.join(dirname, "data.csv"))
 
 class For_my:
 
     @classmethod
     def main(cls) -> None:
-        dirname = os.path.dirname(os.path.abspath(__file__))
-        path = Path(os.path.join(dirname, "data.csv"))
         sys.tracebacklimit = 0
-        keyboard = Controller()
         Tools.logo()
         sleep(2)
         Tools.clear()
-        print("""
-Benvenuto in For_my, scegli un'opzione:
-
-1) Registra le uscite settimanali, litri lavorati e introiti
-2) Vedi la cronologia delle spese
-3) Vedi la cronologia del latte lavorato
-4) Vedi le entrate nette
-5) Crea il grafico (latte e soldi guadagnati in relazione al tempo)
-0) Chiudi il programma
-            """)
+        Tools.menu()
         while True:
             Tools.remove_blanks()
             choice: str = input()
             if choice == "1":  # imposta uscite, litri lavorati e introiti
-                with path.open("a") as op:
-                    writer = csv.writer(op)
-                    writer.writerow([f"{datetime.datetime.now():%d-%m-%Y}", input(
-                        "\nQuanto hai speso questa settimana? "), input(
-                        "Quanti litri di latte hai lavorato? "), input(
-                        "Quanto hai guadagnato questa settimana? ")
-                    ])
+                Tools.load_values()
             elif choice == "2":  # calcola le spese totali
                 print(f"\nLe spese totali sono state di {Tools.summer(1)}€.\n")
             elif choice == "3":  # calcola il latte usato in totale
@@ -88,32 +75,9 @@ Benvenuto in For_my, scegli un'opzione:
                     Tools.summer(2) * 0.4
                 print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€\n")
             elif choice == "5":  # genera il grafico
-                df = pd.read_csv(path)
-
-                trace_high = go.Scatter(
-                    x=df.Date,
-                    y=df["Guadagno"],
-                    name="Soldi guadagnati",
-                    line=dict(color='#57E53D'),
-                    opacity=0.8)
-
-                trace_low = go.Scatter(
-                    x=df.Date,
-                    y=df["Latte usato"],
-                    name="Litri di latte",
-                    line=dict(color='#17BECF'),
-                    opacity=0.8)
-
-                plotly.offline.plot({
-                    "data": [trace_high, trace_low],
-                    "layout": go.Layout(title="Guadagni e litri usati:")
-                }, auto_open=True, filename='grafico.html')
-                sleep(2)
+                Tools.create_graph()
             elif choice == "0":  # chiusura
-                keyboard.press(Key.alt)
-                keyboard.press(Key.f4)
-                keyboard.release(Key.f4)
-                keyboard.release(Key.alt)
+                Tools.close()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
 #            loop = input(  # ripeti ciclo
@@ -126,11 +90,33 @@ Benvenuto in For_my, scegli un'opzione:
 
 class Tools:
 
-    # takes an index and sums every number at that index in a csv file
+    # Creates the graph from data.csv
+    @staticmethod
+    def create_graph():
+        df = pd.read_csv(path)
+
+        trace_high = go.Scatter(
+            x=df.Date,
+            y=df["Guadagno"],
+            name="Soldi guadagnati",
+            line=dict(color='#57E53D'),
+            opacity=0.8)
+
+        trace_low = go.Scatter(
+            x=df.Date,
+            y=df["Latte usato"],
+            name="Litri di latte",
+            line=dict(color='#17BECF'),
+            opacity=0.8)
+
+        plotly.offline.plot({
+            "data": [trace_high, trace_low],
+            "layout": go.Layout(title="Guadagni e litri usati:")
+        }, auto_open=True, filename='grafico.html')
+
+    # Takes an index and sums every number at that index in a csv file
     @staticmethod
     def summer(index: int) -> int:
-        dirname = os.path.dirname(os.path.abspath(__file__))
-        path: Path = Path(os.path.join(dirname, "data.csv"))
         tot: int = 0
         with open(path, "r", newline="") as op:
             reader = csv.reader(op, delimiter=",")
@@ -138,6 +124,17 @@ class Tools:
             for value in data:
                 tot += int(value)
             return tot
+
+    # Allows the user to insert new data
+    @staticmethod
+    def load_values():
+        with path.open("a") as op:
+            writer = csv.writer(op)
+            writer.writerow([f"{datetime.datetime.now():%d-%m-%Y}", input(
+                "\nQuanto hai speso questa settimana? "), input(
+                "Quanti litri di latte hai lavorato? "), input(
+                "Quanto hai guadagnato questa settimana? ")
+            ])
 
     # Takes an index and sums all the numbers at that index in a csv file
     @staticmethod
@@ -155,11 +152,9 @@ class Tools:
             else:
                 return f"{bef}.00"
 
-    # removes every blank line in excess from the .csv file
+    # Removes every blank line in excess from the .csv file
     @staticmethod
     def remove_blanks() -> None:
-        dirname: str = os.path.dirname(os.path.abspath(__file__))
-        path: Path = Path(os.path.join(dirname, "data.csv"))
         with open(path, "r") as op:
             lines: list = op.readlines()  # read lines in memory
         with open(path, "w") as op:  # re-write everything from the beginning
@@ -172,15 +167,38 @@ class Tools:
     # Clears terminal's screen 
     @staticmethod
     def clear() -> None:
-        if Tools.isWin(): 
+        if Tools.is_win(): 
             _ = system("cls")
         else:
             _ = system("clear")
 
     # Check if the OS is Windows
     @staticmethod
-    def isWin() -> bool:
+    def is_win() -> bool:
         return name == "nt"
+
+    # Closes the window
+    @staticmethod
+    def close() -> None:
+        keyboard = Controller()
+        keyboard.press(Key.alt)
+        keyboard.press(Key.f4)
+        keyboard.release(Key.f4)
+        keyboard.release(Key.alt)
+
+    # Prints program's menu
+    @staticmethod
+    def menu():
+        print("""
+Benvenuto in For_my, scegli un'opzione:
+
+1) Registra le uscite settimanali, litri lavorati e introiti
+2) Vedi la cronologia delle spese
+3) Vedi la cronologia del latte lavorato
+4) Vedi le entrate nette
+5) Crea il grafico (latte e soldi guadagnati in relazione al tempo)
+0) Chiudi il programma
+            """)
 
     # Prints the logo
     @staticmethod

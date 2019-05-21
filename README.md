@@ -10,8 +10,8 @@ It stores data in a `.csv` file and can manage it, even generating graphics (usi
 ![Sample graphic preview](sample/sample.png)
 
 ## Instructions
-- Make sure you have installed [`python3`](https://www.python.org/downloads/) and [`pip3`](https://pip.pypa.io/en/stable/installing/).
-- Install the dependencies using `pip3 install pynput plotly pandas pathlib`
+- Make sure you have installed [`python3`](https://www.python.org/downloads/) and [`pip`](https://pip.pypa.io/en/stable/installing/).
+- Install the dependencies using `pip install -r requirements.txt`
 - Launch the script in the terminal using `python3 For_my.py`
 - Choose the option using the corrisponding number.
 

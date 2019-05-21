@@ -1,4 +1,7 @@
-# Byte-compiled / optimized / DLL files
+# Allow only the main Python file:
+!For_my.py
+
+# Byte-compiled / optimized / DLL files:
 __pycache__/
 *.py[cod]
 *$py.class
@@ -11,6 +14,8 @@ __pycache__/
 .idea/
 
 # Ignore following file extensions:
+*.py
 *.csv
 *.html
 *.bak
+*.json
