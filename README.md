@@ -13,7 +13,7 @@ It stores data in a `.csv` file and can manage it, even generating graphics (usi
 - Make sure you have installed [`python3`](https://www.python.org/downloads/) and [`pip`](https://pip.pypa.io/en/stable/installing/).
 - Install the dependencies using `pip install -r requirements.txt`
 - Launch the script in the terminal using `python3 For_my.py`
-- Choose the option using the corrisponding number.
+- Choose the option using the corresponding number.
 
 ### License
 See the [LICENSE](https://github.com/rob93c/RomRoamer/blob/master/LICENSE.md) file for license rights and limitations (MIT).
