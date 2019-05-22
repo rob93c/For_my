@@ -40,7 +40,11 @@
 
 # TO DO: add option to backup data.csv online (Google Drive/Mega/Dropbox)
 
-import os, sys, csv, datetime, plotly
+import os
+import sys
+import csv
+import datetime
+import plotly
 import plotly.graph_objs as go
 import pandas as pd
 from pathlib import Path
@@ -52,6 +56,7 @@ global path
 dirname = os.path.dirname(os.path.abspath(__file__))
 path = Path(os.path.join(dirname, "data.csv"))
 
+
 class For_my:
 
     @classmethod
@@ -61,7 +66,7 @@ class For_my:
         sleep(2)
         Tools.clear()
         Tools.menu()
-        if not path.exists(): # crea data.csv se non esiste già
+        if not path.exists():  # crea data.csv se non esiste già
             f = open(path, "w")
             f.write('Date,Spese,Latte usato,Guadagno,\n')
             f.close()
@@ -82,12 +87,12 @@ class For_my:
                 print(f"\nHai usato un totale di {Tools.summer(2)} litri.\n")
             elif choice == "4":  # calcola le entrate nette
                 gain: float = Tools.summer(3) - Tools.summer(1) - \
-                    Tools.summer(2) * 0.4
+                        Tools.summer(2) * 0.4
                 print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€\n")
             elif choice == "5":  # genera il grafico
                 Tools.create_graph()
             elif choice == "0":  # chiusura
-                sys.exit() #Tools.close()
+                sys.exit()  # Tools.close()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
     #            loop = input(  # ripeti ciclo
@@ -174,10 +179,10 @@ class Tools:
                 else:
                     continue
 
-    # Clears terminal's screen 
+    # Clears terminal's screen
     @staticmethod
     def clear() -> None:
-        if Tools.is_win(): 
+        if Tools.is_win():
             _ = system("cls")
         else:
             _ = system("clear")
@@ -187,16 +192,6 @@ class Tools:
     def is_win() -> bool:
         return name == "nt"
 
-"""
-    # Closes the window
-    @staticmethod
-    def close() -> None:
-        keyboard = Controller()
-        keyboard.press(Key.alt)
-        keyboard.press(Key.f4)
-        keyboard.release(Key.f4)
-        keyboard.release(Key.alt)
-"""
     # Prints program's menu
     @staticmethod
     def menu():
@@ -245,6 +240,15 @@ Benvenuto in For_my, scegli un'opzione:
 
                
                """)
-
+"""
+    # Closes the window
+    @staticmethod
+    def close() -> None:
+        keyboard = Controller()
+        keyboard.press(Key.alt)
+        keyboard.press(Key.f4)
+        keyboard.release(Key.f4)
+        keyboard.release(Key.alt)
+        """
 
 For_my().main()
