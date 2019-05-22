@@ -4,4 +4,4 @@ python:
 install: 
   - pip install -r requirements.txt
 script:
-  - python3 For_my.py || python For_my.py 
+  - python3 test_prettify.py || python test_prettify.py 

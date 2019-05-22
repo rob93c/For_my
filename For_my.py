@@ -251,4 +251,5 @@ Benvenuto in For_my, scegli un'opzione:
         keyboard.release(Key.alt)
         """
 
-For_my().main()
+if __name__ == '__main__':
+    For_my().main()

@@ -1,4 +1,4 @@
-# Allow only the main Python file:
+# Allow only the main Python files:
 !For_my.py
 
 # Byte-compiled / optimized / DLL files:
@@ -8,14 +8,16 @@ __pycache__/
 
 # Ignore following files:
 .directory
+pending.py
+count.py
 
 # Ignore following folders:
 .vscode/
 .idea/
 
 # Ignore following file extensions:
-*.py
 *.csv
 *.html
 *.bak
 *.json
+*.txt
