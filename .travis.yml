@@ -4,4 +4,4 @@ python:
 install: 
   - pip install -r requirements.txt
 script:
-  - DISPLAY=":0" python3 For_my.py || DISPLAY=":0" python For_my.py 
+  - python3 For_my.py || python For_my.py 

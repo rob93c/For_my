@@ -46,7 +46,6 @@ import pandas as pd
 from pathlib import Path
 from time import sleep
 from os import system, name
-from pynput.keyboard import Key, Controller
 
 global path
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -77,7 +76,7 @@ class For_my:
             elif choice == "5":  # genera il grafico
                 Tools.create_graph()
             elif choice == "0":  # chiusura
-                Tools.close()
+                sys.exit()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
 #            loop = input(  # ripeti ciclo
@@ -176,15 +175,6 @@ class Tools:
     @staticmethod
     def is_win() -> bool:
         return name == "nt"
-
-    # Closes the window
-    @staticmethod
-    def close() -> None:
-        keyboard = Controller()
-        keyboard.press(Key.alt)
-        keyboard.press(Key.f4)
-        keyboard.release(Key.f4)
-        keyboard.release(Key.alt)
 
     # Prints program's menu
     @staticmethod
