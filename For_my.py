@@ -50,7 +50,7 @@ import pandas as pd
 from pathlib import Path
 from time import sleep
 from os import system, name
-from pynput.keyboard import Key, Controller
+#from pynput.keyboard import Key, Controller
 
 global path
 dirname = os.path.dirname(os.path.abspath(__file__))
