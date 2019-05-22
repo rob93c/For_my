@@ -46,6 +46,7 @@ import pandas as pd
 from pathlib import Path
 from time import sleep
 from os import system, name
+from pynput.keyboard import Key, Controller
 
 global path
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -60,6 +61,16 @@ class For_my:
         sleep(2)
         Tools.clear()
         Tools.menu()
+        if not path.exists(): # crea data.csv se non esiste già
+            f = open(path, "w")
+            f.write('Date,Spese,Latte usato,Guadagno,\n')
+            f.close()
+            For_my.loop()
+        else:
+            For_my.loop()
+
+    @staticmethod
+    def loop():
         while True:
             Tools.remove_blanks()
             choice: str = input()
@@ -76,15 +87,15 @@ class For_my:
             elif choice == "5":  # genera il grafico
                 Tools.create_graph()
             elif choice == "0":  # chiusura
-                sys.exit()
+                sys.exit() #Tools.close()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
-#            loop = input(  # ripeti ciclo
-#                "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
-#            if loop == "s" or loop == "S":
-#                continue
-#            else:
-#                break
+    #            loop = input(  # ripeti ciclo
+    #                "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
+    #            if loop == "s" or loop == "S":
+    #                continue
+    #            else:
+    #                break
 
 
 class Tools:
@@ -156,7 +167,7 @@ class Tools:
     def remove_blanks() -> None:
         with open(path, "r") as op:
             lines: list = op.readlines()  # read lines in memory
-        with open(path, "w") as op:  # re-write everything from the beginning
+        with open(path, "w") as op:       # re-write everything from the beginning
             for line in lines:
                 if line != "\n":
                     op.write(line)
@@ -176,6 +187,16 @@ class Tools:
     def is_win() -> bool:
         return name == "nt"
 
+"""
+    # Closes the window
+    @staticmethod
+    def close() -> None:
+        keyboard = Controller()
+        keyboard.press(Key.alt)
+        keyboard.press(Key.f4)
+        keyboard.release(Key.f4)
+        keyboard.release(Key.alt)
+"""
     # Prints program's menu
     @staticmethod
     def menu():

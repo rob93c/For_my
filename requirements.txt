@@ -1,3 +1,4 @@
+pynput
 plotly
 pandas
 pathlib
