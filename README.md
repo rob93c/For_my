@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ee4174e8bde54a54b0131f732f0c955e)](https://www.codacy.com/app/rob93c/For_my?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rob93c/For_my&amp;utm_campaign=Badge_Grade)![GitHub top language](https://img.shields.io/github/languages/top/rob93c/RomRoamer.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ee4174e8bde54a54b0131f732f0c955e)](https://www.codacy.com/app/rob93c/For_my?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rob93c/For_my&amp;utm_campaign=Badge_Grade)![GitHub top language](https://img.shields.io/github/languages/top/rob93c/RomRoamer.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.com/rob93c/For_my.svg?branch=master)](https://travis-ci.com/rob93c/For_my)
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y2UIWJ) 
 
