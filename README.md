@@ -7,7 +7,7 @@ A program I developed on my own for [Azienda Agricola Trentina](https://www.face
 
 It stores data in a `.csv` file and can manage it, even generating graphics (using plotly).
 
-![Sample graphic preview](sample/sample.png)
+![Sample graphic preview](sample/sample.jpg)
 
 ## Instructions
 - Make sure you have installed [`python`](https://www.python.org/downloads/) and [`pip`](https://pip.pypa.io/en/stable/installing/).
