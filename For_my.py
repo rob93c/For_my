@@ -50,7 +50,7 @@ import pandas as pd
 from pathlib import Path
 from time import sleep
 from os import system, name
-from pynput.keyboard import Key, Controller
+#from pynput.keyboard import Key, Controller
 
 global path
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -92,7 +92,7 @@ class For_my:
             elif choice == "5":  # genera il grafico
                 Tools.create_graph()
             elif choice == "0":  # chiusura
-                Tools.close()
+                sys.exit() #Tools.close()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
 #               again = input(  # ripeti ciclo
@@ -179,15 +179,6 @@ class Tools:
                 else:
                     continue
 
-    # Closes the window
-    @staticmethod
-    def close() -> None:
-        keyboard = Controller()
-        keyboard.press(Key.alt)
-        keyboard.press(Key.f4)
-        keyboard.release(Key.f4)
-        keyboard.release(Key.alt)
-
     # Clears terminal's screen
     @staticmethod
     def clear() -> None:
@@ -250,6 +241,16 @@ Benvenuto in For_my, scegli un'opzione:
                
                """)
 
+"""
+    # Closes the window
+    @staticmethod
+    def close() -> None:
+        keyboard = Controller()
+        keyboard.press(Key.alt)
+        keyboard.press(Key.f4)
+        keyboard.release(Key.f4)
+        keyboard.release(Key.alt)
+"""
 
 if __name__ == '__main__':
     For_my().main()
