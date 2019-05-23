@@ -50,7 +50,7 @@ import pandas as pd
 from pathlib import Path
 from time import sleep
 from os import system, name
-#from pynput.keyboard import Key, Controller
+from pynput.keyboard import Key, Controller
 
 global path
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -68,7 +68,7 @@ class For_my:
         Tools.menu()
         if not path.exists():  # crea data.csv se non esiste già
             f = open(path, "w")
-            f.write('Date,Spese,Latte usato,Guadagno,\n')
+            f.write("Date,Spese,Latte usato,Guadagno,\n")
             f.close()
             For_my.loop()
         else:
@@ -88,19 +88,19 @@ class For_my:
             elif choice == "4":  # calcola le entrate nette
                 gain: float = Tools.summer(3) - Tools.summer(1) - \
                         Tools.summer(2) * 0.4
-                print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€\n")
+                print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€.\n")
             elif choice == "5":  # genera il grafico
                 Tools.create_graph()
             elif choice == "0":  # chiusura
-                sys.exit()  # Tools.close()
+                Tools.close()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
-    #            loop = input(  # ripeti ciclo
-    #                "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
-    #            if loop == "s" or loop == "S":
-    #                continue
-    #            else:
-    #                break
+#               again = input(  # ripeti ciclo
+#                    "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
+#                if again == "s" or again == "S":
+#                    continue
+#                else:
+#                    break
 
 
 class Tools:
@@ -179,6 +179,15 @@ class Tools:
                 else:
                     continue
 
+    # Closes the window
+    @staticmethod
+    def close() -> None:
+        keyboard = Controller()
+        keyboard.press(Key.alt)
+        keyboard.press(Key.f4)
+        keyboard.release(Key.f4)
+        keyboard.release(Key.alt)
+
     # Clears terminal's screen
     @staticmethod
     def clear() -> None:
@@ -240,16 +249,7 @@ Benvenuto in For_my, scegli un'opzione:
 
                
                """)
-"""
-    # Closes the window
-    @staticmethod
-    def close() -> None:
-        keyboard = Controller()
-        keyboard.press(Key.alt)
-        keyboard.press(Key.f4)
-        keyboard.release(Key.f4)
-        keyboard.release(Key.alt)
-        """
+
 
 if __name__ == '__main__':
     For_my().main()
