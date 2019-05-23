@@ -38,7 +38,7 @@
 
 """
 
-# TO DO: add option to backup data.csv online (Google Drive/Mega/Dropbox)
+# TODO: add an option to backup `data.csv` online (Google Drive/Mega/Dropbox)
 
 import os
 import sys
@@ -50,7 +50,6 @@ import pandas as pd
 from pathlib import Path
 from time import sleep
 from os import system, name
-#from pynput.keyboard import Key, Controller
 
 global path
 dirname = os.path.dirname(os.path.abspath(__file__))
@@ -66,7 +65,7 @@ class For_my:
         sleep(2)
         Tools.clear()
         Tools.menu()
-        if not path.exists():  # crea data.csv se non esiste già
+        if not path.exists():  # creates `data.csv` if it doesn't exists
             f = open(path, "w")
             f.write("Date,Spese,Latte usato,Guadagno,\n")
             f.close()
@@ -79,20 +78,20 @@ class For_my:
         while True:
             Tools.remove_blanks()
             choice: str = input()
-            if choice == "1":  # imposta uscite, litri lavorati e introiti
+            if choice == "1":  # set money spent, used milk and earnings
                 Tools.load_values()
-            elif choice == "2":  # calcola le spese totali
+            elif choice == "2":  # get the total money spent
                 print(f"\nLe spese totali sono state di {Tools.summer(1)}€.\n")
-            elif choice == "3":  # calcola il latte usato in totale
+            elif choice == "3":  # get the total liters of milk used
                 print(f"\nHai usato un totale di {Tools.summer(2)} litri.\n")
-            elif choice == "4":  # calcola le entrate nette
+            elif choice == "4":  # get the total net income
                 gain: float = Tools.summer(3) - Tools.summer(1) - \
                         Tools.summer(2) * 0.4
                 print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€.\n")
-            elif choice == "5":  # genera il grafico
+            elif choice == "5":  # generate the chart
                 Tools.create_graph()
-            elif choice == "0":  # chiusura
-                sys.exit() #Tools.close()
+            elif choice == "0":  # closure
+                sys.exit()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
 #               again = input(  # ripeti ciclo
@@ -105,7 +104,7 @@ class For_my:
 
 class Tools:
 
-    # Creates the graph from data.csv
+    # Creates the chart from `data.csv`
     @staticmethod
     def create_graph():
         df = pd.read_csv(path)
@@ -172,7 +171,7 @@ class Tools:
     def remove_blanks() -> None:
         with open(path, "r") as op:
             lines: list = op.readlines()  # read lines in memory
-        with open(path, "w") as op:       # re-write everything from the beginning
+        with open(path, "w") as op:       # rewrite everything from the beginning
             for line in lines:
                 if line != "\n":
                     op.write(line)
@@ -240,17 +239,6 @@ Benvenuto in For_my, scegli un'opzione:
 
                
                """)
-
-"""
-    # Closes the window
-    @staticmethod
-    def close() -> None:
-        keyboard = Controller()
-        keyboard.press(Key.alt)
-        keyboard.press(Key.f4)
-        keyboard.release(Key.f4)
-        keyboard.release(Key.alt)
-"""
 
 if __name__ == '__main__':
     For_my().main()

@@ -3,7 +3,7 @@
 # For_my
 A program I developed on my own for [**Azienda Agricola Trentina**](https://www.facebook.com/azagrtrentina) to manage the production of cheese, fully written with *Python 3* and *PEP8 compliant*.
 
-It stores data in a `.csv` file and can manage it, even generating graphics (using plotly).
+It stores data in a `.csv` file and can manage it, generating a chart (using plotly).
 
 ![Sample graphic preview](sample/sample.png)
 
