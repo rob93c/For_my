@@ -75,7 +75,7 @@ class For_my:
             For_my.loop()
 
     @staticmethod
-    def loop():
+    def loop() -> None:
         while True:
             Tools.remove_blanks()
             choice: str = input()
