@@ -3,16 +3,16 @@
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y2UIWJ) 
 
 # For_my
-A program I developed on my own for [Azienda Agricola Trentina](https://www.facebook.com/azagrtrentina) to manage the production of cheese, fully written with Python 3 and complies with the pep8 standard.
+A program I developed on my own for [Azienda Agricola Trentina](https://www.facebook.com/azagrtrentina) to manage the production of cheese, fully written with Python 3 and PEP8 compliant.
 
 It stores data in a `.csv` file and can manage it, even generating graphics (using plotly).
 
 ![Sample graphic preview](sample/sample.png)
 
 ## Instructions
-- Make sure you have installed [`python3`](https://www.python.org/downloads/) and [`pip`](https://pip.pypa.io/en/stable/installing/).
+- Make sure you have installed [`python`](https://www.python.org/downloads/) and [`pip`](https://pip.pypa.io/en/stable/installing/).
 - Install the dependencies using `pip install -r requirements.txt`
-- Launch the script in the terminal using `python3 For_my.py`
+- Launch the script in the terminal using `python For_my.py`
 - Choose the option using the corresponding number.
 
 ### License
