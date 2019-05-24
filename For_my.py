@@ -94,7 +94,7 @@ class For_my:
                 sys.exit()
             else:
                 print("\nInserisci il numero corrispondente all'azione desiderata.\n")
-#               again = input(  # ripeti ciclo
+#               again = input(  # repeat cycle
 #                    "\nDesideri continuare a usare l'applicazione?\n(Premi \"s\" per continuare)\n")
 #                if again == "s" or again == "S":
 #                    continue
@@ -150,7 +150,7 @@ class Tools:
                 "Quanto hai guadagnato questa settimana? ")
             ])
 
-    # Takes an index and sums all the numbers at that index in a csv file
+    # Takes a float number and returns a string with just 2 decimals
     @staticmethod
     def prettify(num: float) -> str:
         strnum: list = str(num).split(".")
