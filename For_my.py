@@ -51,7 +51,6 @@ from pathlib import Path
 from time import sleep
 from os import system, name
 
-global path
 dirname = os.path.dirname(os.path.abspath(__file__))
 path = Path(os.path.join(dirname, "data.csv"))
 
