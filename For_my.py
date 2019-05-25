@@ -183,7 +183,7 @@ class Tools:
     # Backups `data.csv` to Dropbox, in Dropbox/Applications/Formy/
     @staticmethod
     def backup() -> None:
-        TOKEN = 'zP2e0gy0rZYAAAAAAACfOjnunR2teBRI_rzdVBOF4gGs-GooYn9tzVJp06ZNYgoW'
+        TOKEN = '' # Paste your Dropbox token
         LOCALFILE = os.path.join(dirname, "data.csv")
         BACKUPPATH = '/data.csv'
         dbx = dropbox.Dropbox(TOKEN)
