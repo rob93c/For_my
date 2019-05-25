@@ -19,5 +19,4 @@ count.py
 *.csv
 *.html
 *.bak
-*.json
 *.txt
