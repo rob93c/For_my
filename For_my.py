@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Created by Roberto Cella
-# For any question mail me at rob.uniuc@gmail.com
+__version__ = '0.4'
+__author__ = 'Roberto Cella'
 
 """
 
@@ -66,7 +66,7 @@ class For_my:
         Tools.menu()
         if not path.exists():  # creates `data.csv` if it doesn't exists
             f = open(path, "w")
-            f.write("Date,Spese,Latte usato,Guadagno,\n")
+            f.write("Date,Spese,Latte usato,Guadagno\n")
             f.close()
             For_my.loop()
         else:
@@ -89,6 +89,8 @@ class For_my:
                 print(f"\nHai guadagnato un netto di {Tools.prettify(gain)}€.\n")
             elif choice == "5":  # generate the chart
                 Tools.create_graph()
+            elif choice == "6":  # backup `data.csv` in Dropbox
+                pass
             elif choice == "0":  # closure
                 sys.exit()
             else:
@@ -105,7 +107,7 @@ class Tools:
 
     # Creates the chart from `data.csv`
     @staticmethod
-    def create_graph():
+    def create_graph() -> None:
         df = pd.read_csv(path)
 
         trace_high = go.Scatter(
@@ -140,7 +142,7 @@ class Tools:
 
     # Allows the user to insert new data
     @staticmethod
-    def load_values():
+    def load_values() -> None:
         with path.open("a") as op:
             writer = csv.writer(op)
             writer.writerow([f"{datetime.datetime.now():%d-%m-%Y}", input(
@@ -192,7 +194,7 @@ class Tools:
 
     # Prints program's menu
     @staticmethod
-    def menu():
+    def menu() -> None:
         print("""
 Benvenuto in For_my, scegli un'opzione:
 
