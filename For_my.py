@@ -38,18 +38,19 @@ __author__ = 'Roberto Cella'
 
 """
 
-# TODO: add an option to backup `data.csv` online (Google Drive/Mega/Dropbox)
-
 import os
 import sys
 import csv
-import datetime
 import plotly
-import plotly.graph_objs as go
+import dropbox
+import datetime
 import pandas as pd
-from pathlib import Path
 from time import sleep
+from pathlib import Path
 from os import system, name
+import plotly.graph_objs as go
+from dropbox.files import WriteMode
+from dropbox.exceptions import ApiError
 
 dirname = os.path.dirname(os.path.abspath(__file__))
 path = Path(os.path.join(dirname, "data.csv"))
@@ -64,7 +65,7 @@ class For_my:
         sleep(2)
         Tools.clear()
         Tools.menu()
-        if not path.exists():  # creates `data.csv` if it doesn't exists
+        if not path.exists():  # creates `data.csv` if it doesn't exist
             f = open(path, "w")
             f.write("Date,Spese,Latte usato,Guadagno\n")
             f.close()
@@ -90,7 +91,7 @@ class For_my:
             elif choice == "5":  # generate the chart
                 Tools.create_graph()
             elif choice == "6":  # backup `data.csv` in Dropbox
-                pass
+                Tools.backup()
             elif choice == "0":  # closure
                 sys.exit()
             else:
@@ -179,6 +180,33 @@ class Tools:
                 else:
                     continue
 
+    # Backups `data.csv` to Dropbox, in Dropbox/Applications/Formy/
+    @staticmethod
+    def backup() -> None:
+        TOKEN = 'zP2e0gy0rZYAAAAAAACfOjnunR2teBRI_rzdVBOF4gGs-GooYn9tzVJp06ZNYgoW'
+        LOCALFILE = os.path.join(dirname, "data.csv")
+        BACKUPPATH = '/data.csv'
+        dbx = dropbox.Dropbox(TOKEN)
+        with open(LOCALFILE, 'rb') as f:
+            # We use WriteMode=overwrite to make sure that the settings in the file
+            # are changed on upload
+            print(f"""\nCaricamento di {LOCALFILE} in Dropbox...
+Troverai il file in Dropbox/Applicazioni/Formy.""")
+            try:
+                dbx.files_upload(f.read(), BACKUPPATH, mode=WriteMode('overwrite'))
+                print("Caricamento completato con successo!\n")
+            except ApiError as err:
+                # This checks for the specific error where a user doesn't have enough Dropbox space quota to upload this file
+                if (err.error.is_path() and
+                        err.error.get_path().error.is_insufficient_space()):
+                    sys.exit("ERRORE: Spazio insufficiente.")
+                elif err.user_message_text:
+                    print(err.user_message_text)
+                    sys.exit()
+                else:
+                    print(err)
+                    sys.exit()
+
     # Clears terminal's screen
     @staticmethod
     def clear() -> None:
@@ -203,6 +231,7 @@ Benvenuto in For_my, scegli un'opzione:
 3) Vedi la cronologia del latte lavorato
 4) Vedi le entrate nette
 5) Crea il grafico (latte e soldi guadagnati in relazione al tempo)
+6) Esegui il backup di data.csv in Dropbox
 0) Chiudi il programma
             """)
 
