@@ -18,5 +18,6 @@ count.py
 # Ignore following file extensions:
 *.csv
 *.html
+*.xml
 *.bak
 *.txt
