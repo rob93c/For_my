@@ -128,7 +128,7 @@ class Tools:
         plotly.offline.plot({
             "data": [trace_high, trace_low],
             "layout": go.Layout(title="Guadagni e litri usati:")
-        }, auto_open=True, filename='grafico.html')
+        }, auto_open=True, filename="grafico.html")
 
     # Takes an index and sums every number at that index in a csv file
     @staticmethod
@@ -183,17 +183,17 @@ class Tools:
     # Backups `data.csv` to Dropbox, in Dropbox/Applications/Formy/
     @staticmethod
     def backup() -> None:
-        TOKEN = '' # Paste your Dropbox token
+        TOKEN = "" # Paste your Dropbox token
         LOCALFILE = os.path.join(dirname, "data.csv")
-        BACKUPPATH = '/data.csv'
+        BACKUPPATH = "/data.csv"
         dbx = dropbox.Dropbox(TOKEN)
-        with open(LOCALFILE, 'rb') as f:
+        with open(LOCALFILE, "rb") as f:
             # We use WriteMode=overwrite to make sure that the settings in the file
             # are changed on upload
             print(f"""\nCaricamento di {LOCALFILE} in Dropbox...
 Troverai il file in Dropbox/Applicazioni/Formy.""")
             try:
-                dbx.files_upload(f.read(), BACKUPPATH, mode=WriteMode('overwrite'))
+                dbx.files_upload(f.read(), BACKUPPATH, mode=WriteMode("overwrite"))
                 print("Caricamento completato con successo!\n")
             except ApiError as err:
                 # This checks for the specific error where a user doesn't have enough Dropbox space quota to upload this file
@@ -270,5 +270,5 @@ Benvenuto in For_my, scegli un'opzione:
                
                """)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     For_my().main()
