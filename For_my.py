@@ -33,6 +33,13 @@ __author__ = 'Roberto Cella'
                               .lkOkxxkxkOko,                  
                                .';cloooc:'.                   
 
+                     _____                            
+                    |  ___|__  _ __   _ __ ___  _   _ 
+                    | |_ / _ \| '__| | '_ ` _ \| | | |
+                    |  _| (_) | |    | | | | | | |_| |
+                    |_|  \___/|_|    |_| |_| |_|\__, |
+                                                |___/ 
+
 
          DEVELOPED BY ROBERTO CELLA FOR AZIENDA AGRICOLA TRENTINA
 
@@ -267,6 +274,12 @@ Benvenuto in For_my, scegli un'opzione:
                               .lkOkxxkxkOko,                  
                                .';cloooc:'.                   
 
+                     _____                            
+                    |  ___|__  _ __   _ __ ___  _   _ 
+                    | |_ / _ \| '__| | '_ ` _ \| | | |
+                    |  _| (_) | |    | | | | | | |_| |
+                    |_|  \___/|_|    |_| |_| |_|\__, |
+                                                |___/ 
                
                """)
 
