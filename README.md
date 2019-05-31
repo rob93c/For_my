@@ -17,13 +17,13 @@ It stores data in a `.csv` file and can manage it, generating a chart (using plo
 ### Overview
 
 The program will ask the user to choose what to do:
-- 1 ---> Set how much money you spent, how much milk you used and weekly earnings 
-- 2 ---> Get the total money spent
-- 3 ---> Get the total liters of milk used
-- 4 ---> Get the total net income
-- 5 ---> Generate the chart showing both incomes and the liters of milk used
-- 6 ---> Backup `data.csv` in Dropbox
-- 0 ---> Close the program
+- 1 &rarr; Set how much money you spent, how much milk you used and weekly earnings 
+- 2 &rarr; Get the total money spent
+- 3 &rarr; Get the total liters of milk used
+- 4 &rarr; Get the total net income
+- 5 &rarr; Generate the chart showing both incomes and the liters of milk used
+- 6 &rarr; Backup `data.csv` in Dropbox
+- 0 &rarr; Close the program
 
 #### License
 
