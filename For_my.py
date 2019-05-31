@@ -4,7 +4,7 @@
 __version__ = '0.5'
 __author__ = 'Roberto Cella'
 
-"""
+r"""
 
 
                                .:lddddddoc'.                  
@@ -203,7 +203,8 @@ Troverai il file in Dropbox/Applicazioni/Formy.""")
                 dbx.files_upload(f.read(), BACKUPPATH, mode=WriteMode("overwrite"))
                 print("Caricamento completato con successo!\n")
             except ApiError as err:
-                # This checks for the specific error where a user doesn't have enough Dropbox space quota to upload this file
+                # This checks for the specific error where a user doesn't 
+                # have enough Dropbox space quota to upload this file
                 if (err.error.is_path() and
                         err.error.get_path().error.is_insufficient_space()):
                     sys.exit("ERRORE: Spazio insufficiente.")
@@ -245,7 +246,7 @@ Benvenuto in For_my, scegli un'opzione:
     # Prints the logo
     @staticmethod
     def logo() -> None:
-        print("""
+        print(r"""
 
 
                                .:lddddddoc'.                  

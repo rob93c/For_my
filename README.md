@@ -8,13 +8,23 @@ It stores data in a `.csv` file and can manage it, generating a chart (using plo
 
 ![Sample graphic preview](sample/sample.png)
 
-## Instructions
+## Installation
 
 - Make sure you have installed [`python`](https://www.python.org/downloads/) and [`pip`](https://pip.pypa.io/en/stable/installing/).
 - Install the dependencies using `pip install -r requirements.txt`
 - Launch the script in the terminal using `python For_my.py`
-- Choose the option using the corresponding number.
 
-### License
+### Overview
+
+The program will ask the user to choose what to do:
+- 1 ---> Set how much money you spent, how much milk you used and weekly earnings 
+- 2 ---> Get the total money spent
+- 3 ---> Get the total liters of milk used
+- 4 ---> Get the total net income
+- 5 ---> Generate the chart showing both incomes and the liters of milk used
+- 6 ---> Backup `data.csv` in Dropbox
+- 0 ---> Close the program
+
+#### License
 
 See the [**LICENSE**](https://github.com/rob93c/RomRoamer/blob/master/LICENSE.md) file for license rights and limitations (MIT).
