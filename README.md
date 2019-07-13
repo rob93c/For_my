@@ -28,3 +28,8 @@ The program will ask the user to choose what to do:
 #### License
 
 See the [**LICENSE**](https://github.com/rob93c/RomRoamer/blob/master/LICENSE.md) file for license rights and limitations (MIT).
+
+
+<div align="right"><sup>
+  made with ❤️ by <a href="https://github.com/rob93c">@rob93c</a>
+</sup></div>
